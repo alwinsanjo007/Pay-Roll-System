@@ -1,0 +1,13 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center py-16 bg-white rounded-lg shadow-lg">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Welcome to the Payroll Management System</h2>
+    <p class="text-lg text-gray-700 mb-8">Efficiently manage your employee data and payroll operations.</p>
+    <div class="flex justify-center space-x-6">
+        <a href="{{ url_for('add_employee') }}" class="btn-primary">Add New Employee</a>
+        <a href="{{ url_for('view_employees') }}" class="btn-secondary">View All Employees</a>
+    </div>
+</div>
+{% endblock %}

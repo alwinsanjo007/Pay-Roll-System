@@ -1,0 +1,42 @@
+<!-- templates/view_payrolls.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Generated Payrolls</h2>
+    {% if payrolls %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-200 rounded-md">
+            <thead>
+                <tr class="bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                    <th class="py-3 px-4 border-b">Payroll ID</th>
+                    <th class="py-3 px-4 border-b">Pay Date</th>
+                    <th class="py-3 px-4 border-b">Hours Worked</th>
+                    <th class="py-3 px-4 border-b">Base Salary</th>
+                    <th class="py-3 px-4 border-b">Bonus</th>
+                    <th class="py-3 px-4 border-b">Deductions</th>
+                    <th class="py-3 px-4 border-b">Gross Pay</th>
+                    <th class="py-3 px-4 border-b">Net Pay</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payroll in payrolls %}
+                <tr class="hover:bg-gray-50 border-b last:border-b-0">
+                    <td class="py-3 px-4">{{ payroll.id }}</td>
+                    <td class="py-3 px-4">{{ payroll.pay_date }}</td>
+                    <td class="py-3 px-4">{{ "%.2f"|format(payroll.hours_worked) }}</td>
+                    <td class="py-3 px-4">${{ "%.2f"|format(payroll.base_salary_at_pay) }}</td>
+                    <td class="py-3 px-4">${{ "%.2f"|format(payroll.bonus) }}</td>
+                    <td class="py-3 px-4">${{ "%.2f"|format(payroll.deductions) }}</td>
+                    <td class="py-3 px-4 font-semibold text-green-700">${{ "%.2f"|format(payroll.gross_pay) }}</td>
+                    <td class="py-3 px-4 font-bold text-blue-700">${{ "%.2f"|format(payroll.net_pay) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center text-gray-600">No payroll records found. Generate payrolls to see them here.</p>
+    {% endif %}
+</div>
+{% endblock %}

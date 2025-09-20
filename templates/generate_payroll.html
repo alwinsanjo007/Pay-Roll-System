@@ -1,0 +1,41 @@
+<!-- templates/generate_payroll.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center">Generate Payroll</h2>
+    <form action="{{ url_for('generate_payroll') }}" method="POST" class="space-y-4">
+        <div>
+            <label for="employee_id" class="block text-sm font-medium text-gray-700">Select Employee</label>
+            <select id="employee_id" name="employee_id" required
+                    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                <option value="">-- Select an Employee --</option>
+                {% for employee in employees %}
+                    <option value="{{ employee.id }}">{{ employee.first_name }} {{ employee.last_name }} (Base: ${{ "%.2f"|format(employee.base_salary) }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="pay_date" class="block text-sm font-medium text-gray-700">Pay Date</label>
+            <input type="date" id="pay_date" name="pay_date" required
+                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+            <label for="hours_worked" class="block text-sm font-medium text-gray-700">Hours Worked (approx. monthly)</label>
+            <input type="number" step="0.01" id="hours_worked" name="hours_worked" value="160" required
+                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+            <label for="bonus" class="block text-sm font-medium text-gray-700">Bonus Amount</label>
+            <input type="number" step="0.01" id="bonus" name="bonus" value="0.00"
+                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+            <label for="deductions" class="block text-sm font-medium text-gray-700">Deductions Amount</label>
+            <input type="number" step="0.01" id="deductions" name="deductions" value="0.00"
+                   class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <button type="submit" class="w-full btn-primary">Generate Payroll</button>
+    </form>
+</div>
+{% endblock %}
